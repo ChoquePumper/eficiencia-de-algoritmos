@@ -37,6 +37,9 @@ func algoritmo(n:int):
 	print("Se tiene que se sobreescribir esta funcion.")
 # -------------------------------------------------
 
+func algoritmo_alternativo(n:int):
+	print("Se tiene que se sobreescribir esta funcion.")
+
 # Función llamada por el hilo y que llama al algoritmo
 func _funcion_para_el_hilo(n:int):
 	# Establece el tiempo inicial y marca la bandera de en_ejecucion
@@ -47,7 +50,8 @@ func _funcion_para_el_hilo(n:int):
 	emit_signal("algoritmo_iniciado") # Emitir señal de inicio
 	mutex.unlock()
 	# Ejecuta el algoritmo
-	algoritmo(n)
+	#algoritmo(n)
+	algoritmo_alternativo(n)
 	# El algoritmo terminó!
 	# Marcar el tiempo de fin
 	mutex.lock()

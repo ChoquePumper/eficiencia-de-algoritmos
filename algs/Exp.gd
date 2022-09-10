@@ -22,3 +22,13 @@ func algoritmo(n: int):
 		# Aquí itera pocas veces, por lo que para mejor respuesta del botón de
 		# detener, también tiene que estar en el otro bucle while.
 		if DebeTerminarElAlgoritmo(): return
+
+func algoritmo_alternativo(n: int):
+	var i:int = 1
+	var limite: int = int(pow(2,n))
+	while i<=limite:
+		i+=1
+		OS.delay_msec(10)
+		SetProgreso( float(i)/limite )
+		# Terminar el algoritmo si se le ordena.
+		if DebeTerminarElAlgoritmo(): return
