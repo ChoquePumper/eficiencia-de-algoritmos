@@ -37,21 +37,29 @@ rect_min_size = Vector2( 80, 0 )
 hint_tooltip = "Inicia todos los algoritmos visibles."
 text = "Iniciar todos"
 
-[node name="VSeparator" type="VSeparator" parent="PanelSuperior/HBoxContainer"]
+[node name="btnDetenerTodos" type="Button" parent="PanelSuperior/HBoxContainer"]
 margin_left = 96.0
-margin_right = 100.0
+margin_right = 200.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 80, 0 )
+hint_tooltip = "Inicia todos los algoritmos visibles."
+text = "Detener todos"
+
+[node name="VSeparator" type="VSeparator" parent="PanelSuperior/HBoxContainer"]
+margin_left = 204.0
+margin_right = 208.0
 margin_bottom = 24.0
 
 [node name="labelValorN" type="Label" parent="PanelSuperior/HBoxContainer"]
-margin_left = 104.0
+margin_left = 212.0
 margin_top = 5.0
-margin_right = 174.0
+margin_right = 282.0
 margin_bottom = 19.0
 text = "Valor de N:"
 
 [node name="inputValorN" type="SpinBox" parent="PanelSuperior/HBoxContainer"]
-margin_left = 178.0
-margin_right = 274.0
+margin_left = 286.0
+margin_right = 382.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 96, 0 )
 max_value = 1000.0
@@ -197,6 +205,7 @@ text = "2^n"
 icon = ExtResource( 10 )
 
 [connection signal="pressed" from="PanelSuperior/HBoxContainer/btnIniciarTodos" to="." method="_on_btnIniciarTodos_pressed"]
+[connection signal="pressed" from="PanelSuperior/HBoxContainer/btnDetenerTodos" to="." method="_on_btnDetenerTodos_pressed"]
 [connection signal="value_changed" from="PanelSuperior/HBoxContainer/inputValorN" to="." method="_on_inputValorN_value_changed"]
 [connection signal="toggled" from="PanelInferior/HBoxContainer/btnMostrarLogN" to="." method="_on_btnMostrar_toggled" binds= [ 0 ]]
 [connection signal="toggled" from="PanelInferior/HBoxContainer/btnMostrarN" to="." method="_on_btnMostrar_toggled" binds= [ 1 ]]

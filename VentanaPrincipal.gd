@@ -27,6 +27,10 @@ func _on_btnIniciarTodos_pressed():
 	for vis in array_vis: if vis.visible:
 		vis.EjecutarAlgoritmo(valorN)
 
+func _on_btnDetenerTodos_pressed():
+	for vis in array_vis: if vis.visible:
+		vis.DetenerAlgoritmo()
+
 # Se presionó el boton para mostrar/ocultar en la parte inferior de la pantalla
 func _on_btnMostrar_toggled(button_pressed, i):
 	var vis: Container = array_vis[i]
