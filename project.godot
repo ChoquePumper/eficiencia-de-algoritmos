@@ -10,8 +10,10 @@ config_version=4
 
 [application]
 
-config/name="EficienciaDeAlgoritmos"
+config/name="Eficiencia de algoritmos"
 run/main_scene="res://VentanaPrincipal.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="EficienciaDeAlgoritmos"
 config/icon="res://icon.png"
 
 [gui]

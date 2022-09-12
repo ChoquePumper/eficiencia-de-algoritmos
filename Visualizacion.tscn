@@ -21,6 +21,7 @@ script = ExtResource( 2 )
 [node name="labelArribaIzq" type="Label" parent="."]
 margin_left = 4.0
 margin_top = 4.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Tiempo: 0:00.000
 Progreso: 0.000000
 N = 0"

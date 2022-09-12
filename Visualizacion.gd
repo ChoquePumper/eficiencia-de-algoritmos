@@ -95,7 +95,7 @@ func _draw():
 	var grosor_lineas: float = GetGrosorLineas(dup_en_ejecucion)
 	draw_rect(Rect2(Vector2.ZERO, rect_size), color_lineas, false, grosor_lineas)
 	# diagonales
-	draw_line(Vector2.ZERO, rect_size, color_lineas)
+	draw_line(Vector2.ZERO, rect_size, color_lineas, grosor_lineas)
 	draw_line(Vector2(0, rect_size.y), Vector2(rect_size.x, 0), color_lineas, grosor_lineas)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -204,6 +204,7 @@ func _on_btnIniciar_pressed():
 func _on_Visualizacin_algoritmo_terminado():
 	btnIniciar.text = "Iniciar"
 	dup_en_ejecucion = en_ejecucion
+	print("Algoritmo ", getNombre(), " terminado. N=",Nactual,"; Tiempo=",getTiempoTexto(tiempo_fin-tiempo_inicio),"; Progreso:",GetProgreso())
 	update()
 
 func _on_Visualizacin_algoritmo_iniciado():
