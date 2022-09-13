@@ -5,9 +5,10 @@ signal algoritmo_iniciado()
 signal algoritmo_terminado()
 
 # Nodos hijos
-onready var labelArriba = $labelArribaIzq
+onready var labelArriba = $VBoxContainer/labelArribaIzq
 onready var grafico = $"Gráfico"
-onready var btnIniciar = $btnIniciar
+onready var btnIniciar = $VBoxContainer/btnIniciar
+onready var chkAlternativo = $VBoxContainer/chkAlternativo
 
 var proximoN: int = 0
 var Nactual: int = 0
@@ -27,6 +28,11 @@ var terminate_thread: bool = false
 var dup_en_ejecucion: bool = en_ejecucion
 var dup_progress: float = progress
 
+# Referencias a funciones
+onready var funcref_algoritmo := funcref(self,"algoritmo")
+onready var funcref_algoritmo_alt := funcref(self,"algoritmo_alternativo")
+onready var funcref_actual :FuncRef = getAlgoritmoAEjecutar()
+
 # Sobreescribir estas funciones para cada algoritmo
 func getNombre() -> String: return "GenericVis"
 func getColor() -> Color: return Color.purple
@@ -37,13 +43,17 @@ func algoritmo(n:int):
 	print("Se tiene que se sobreescribir esta funcion.")
 # -------------------------------------------------
 
-func algoritmo_alternativo(n:int):
+func algoritmo_alternativo(_n:int):
 	print("Se tiene que se sobreescribir esta funcion.")
 
 # Función llamada por el hilo y que llama al algoritmo
 func _funcion_para_el_hilo(n:int):
+	var algoritmo_a_ejecutar: FuncRef
 	# Establece el tiempo inicial y marca la bandera de en_ejecucion
 	mutex.lock()
+	SetProgreso(0)
+	# Establece que algoritmo ejecutar según la casilla de Alternativo
+	algoritmo_a_ejecutar = getAlgoritmoAEjecutar()
 	tiempo_inicio = Time.get_ticks_msec()
 	tiempo_fin = -1
 	marcarEnEjecucion(true)
@@ -51,7 +61,8 @@ func _funcion_para_el_hilo(n:int):
 	mutex.unlock()
 	# Ejecuta el algoritmo
 	#algoritmo(n)
-	algoritmo_alternativo(n)
+	#algoritmo_alternativo(n)
+	algoritmo_a_ejecutar.call_func(n)
 	# El algoritmo terminó!
 	# Marcar el tiempo de fin
 	mutex.lock()
@@ -123,6 +134,9 @@ func _exit_tree(): # Al salir
 func _on_Visualizacin_item_rect_changed():
 	# Centrar gráfico en caso de que se cambie el tamaño de la ventana/pantalla.
 	CenterGraph()
+	
+func getAlgoritmoAEjecutar() -> FuncRef:
+	return funcref_algoritmo_alt if chkAlternativo.pressed else funcref_algoritmo
 	
 func estaEnEjecucion() -> bool:
 	mutex.lock()
@@ -203,10 +217,12 @@ func _on_btnIniciar_pressed():
 
 func _on_Visualizacin_algoritmo_terminado():
 	btnIniciar.text = "Iniciar"
+	chkAlternativo.disabled = false;
 	dup_en_ejecucion = en_ejecucion
-	print("Algoritmo ", getNombre(), " terminado. N=",Nactual,"; Tiempo=",getTiempoTexto(tiempo_fin-tiempo_inicio),"; Progreso:",GetProgreso())
+	print("Algoritmo ", getNombre(), " terminado. N=",Nactual,"; Tiempo=",getTiempoTexto(tiempo_fin-tiempo_inicio),"; Progreso=",GetProgreso())
 	update()
 
 func _on_Visualizacin_algoritmo_iniciado():
 	btnIniciar.text = "Detener"
+	chkAlternativo.disabled = true;
 	#dup_en_ejecucion = en_ejecucion

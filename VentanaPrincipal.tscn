@@ -59,9 +59,9 @@ text = "Valor de N:"
 
 [node name="inputValorN" type="SpinBox" parent="PanelSuperior/HBoxContainer"]
 margin_left = 286.0
-margin_right = 382.0
+margin_right = 414.0
 margin_bottom = 24.0
-rect_min_size = Vector2( 96, 0 )
+rect_min_size = Vector2( 128, 0 )
 max_value = 1000.0
 value = 200.0
 allow_greater = true

@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Visualizacion.gd" type="Script" id=1]
 [ext_resource path="res://grafico.gd" type="Script" id=2]
 [ext_resource path="res://new_dynamicfont.tres" type="DynamicFont" id=3]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.145098, 0.145098, 0.145098, 0.376471 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.145098, 0.145098, 0.145098, 0.501961 )
+
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="Visualización" type="Container"]
 margin_right = 256.0
@@ -17,14 +25,6 @@ __meta__ = {
 [node name="Gráfico" type="Node2D" parent="."]
 position = Vector2( 128, 128 )
 script = ExtResource( 2 )
-
-[node name="labelArribaIzq" type="Label" parent="."]
-margin_left = 4.0
-margin_top = 4.0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-text = "Tiempo: 0:00.000
-Progreso: 0.000000
-N = 0"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
@@ -42,15 +42,51 @@ text = "Nombre"
 align = 1
 valign = 1
 
-[node name="btnIniciar" type="Button" parent="."]
-anchor_top = 1.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_bottom = 1.0
 margin_left = 4.0
+margin_top = 4.0
+margin_right = 40.0
 margin_bottom = -4.0
+
+[node name="labelArribaIzq" type="Label" parent="VBoxContainer"]
+margin_right = 124.0
+margin_bottom = 48.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Tiempo: 0:00.000
+Progreso: 0.000000
+N = 0"
+
+[node name="Separador" type="HSeparator" parent="VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_top = 52.0
+margin_right = 124.0
+margin_bottom = 204.0
+size_flags_vertical = 3
+
+[node name="chkAlternativo" type="CheckBox" parent="VBoxContainer"]
+margin_top = 208.0
+margin_right = 124.0
+margin_bottom = 224.0
+custom_colors/font_color_disabled = Color( 0.835294, 0.835294, 0.835294, 1 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 1 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/hover_pressed = SubResource( 2 )
+custom_styles/normal = SubResource( 1 )
+pressed = true
+text = "Alternativo"
+
+[node name="btnIniciar" type="Button" parent="VBoxContainer"]
+margin_top = 228.0
+margin_right = 52.0
+margin_bottom = 248.0
 grow_vertical = 0
+size_flags_horizontal = 0
 text = "Iniciar"
 
 [connection signal="algoritmo_iniciado" from="." to="." method="_on_Visualizacin_algoritmo_iniciado" flags=3]
 [connection signal="algoritmo_terminado" from="." to="." method="_on_Visualizacin_algoritmo_terminado" flags=3]
 [connection signal="item_rect_changed" from="." to="." method="_on_Visualizacin_item_rect_changed"]
-[connection signal="pressed" from="btnIniciar" to="." method="_on_btnIniciar_pressed"]
+[connection signal="pressed" from="VBoxContainer/btnIniciar" to="." method="_on_btnIniciar_pressed"]
